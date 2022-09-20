@@ -42,7 +42,7 @@ fun MainNavHost(navController: NavHostController){
         }
 
         composable(route = "densestu"){
-            DensetsuScreen()
+            DensetsuScreen(navController = navController)
         }
     }
 }

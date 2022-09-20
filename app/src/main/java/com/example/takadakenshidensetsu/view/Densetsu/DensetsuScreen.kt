@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -13,11 +14,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.takadakenshidensetsu.R
 import com.example.takadakenshidensetsu.view.Densetsu.DensetsuViewModel
 
 @Composable
-fun DensetsuScreen(densetsuViewModel: DensetsuViewModel = viewModel()) {
+fun DensetsuScreen(navController: NavController, densetsuViewModel: DensetsuViewModel = viewModel()) {
 
     LaunchedEffect(Unit) {
         densetsuViewModel.getDensetsu()
@@ -37,6 +39,9 @@ fun DensetsuScreen(densetsuViewModel: DensetsuViewModel = viewModel()) {
             )
             densetsu.value?.let {
                 Text("$it")
+            }
+            Button(onClick = { navController.navigate("start") }) {
+                Text(text = "もう一度伝説を探す")
             }
         }
     }
