@@ -37,10 +37,10 @@ fun DensetsuScreen(navController: NavController, densetsuViewModel: DensetsuView
                 painter = painterResource(id = R.drawable.takadakenshi),
                 contentDescription = "Takada Kenshi face",
             )
-            densetsu.value?.let {
-                Text("$it")
+            densetsu.value?.let { densetsu ->
+                Text(densetsu)
             }
-            Button(onClick = { navController.navigate("start") }) {
+            Button(onClick = { navController.navigate("top") }) {
                 Text(text = "もう一度伝説を探す")
             }
         }

@@ -36,8 +36,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainNavHost(navController: NavHostController){
-    NavHost(navController = navController, startDestination = "start"){
-        composable(route = "start"){
+    NavHost(navController = navController, startDestination = "top"){
+        composable(route = "top"){
             StartScreen(navController = navController)
         }
 
