@@ -1,22 +1,19 @@
-package com.example.takadakenshidensetsu.view
+package com.example.takadakenshidensetsu.view.Densetsu
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Button
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.takadakenshidensetsu.R
-import com.example.takadakenshidensetsu.view.Densetsu.DensetsuViewModel
 
 @Composable
 fun DensetsuScreen(navController: NavController, densetsuViewModel: DensetsuViewModel = viewModel()) {
@@ -36,11 +33,12 @@ fun DensetsuScreen(navController: NavController, densetsuViewModel: DensetsuView
             Image(
                 painter = painterResource(id = R.drawable.takadakenshi),
                 contentDescription = "Takada Kenshi face",
+                modifier = Modifier.padding(80.dp, 10.dp)
             )
             densetsu.value?.let { densetsu ->
-                Text(densetsu)
+                Text(densetsu, Modifier.padding(10.dp, 10.dp))
             }
-            Button(onClick = { navController.navigate("top") }) {
+            Button(onClick = { navController.navigate("home") }) {
                 Text(text = "もう一度伝説を探す")
             }
         }
