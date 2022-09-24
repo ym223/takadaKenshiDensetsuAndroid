@@ -9,8 +9,8 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.takadakenshidensetsu.R
@@ -36,7 +36,7 @@ fun DensetsuScreen(navController: NavController, densetsuViewModel: DensetsuView
                 modifier = Modifier.padding(80.dp, 10.dp)
             )
             densetsu.value?.let { densetsu ->
-                Text(densetsu, Modifier.padding(10.dp, 10.dp))
+                Text(densetsu.text, Modifier.padding(10.dp, 10.dp))
             }
             Button(onClick = { navController.navigate("home") }) {
                 Text(text = "もう一度伝説を探す")

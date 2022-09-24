@@ -64,7 +64,7 @@ fun MainNavHost(navController: NavHostController){
         }
 
         composable(route = "list"){
-            DensetsuListScreen(navController = navController)
+            DensetsuListScreen()
         }
     }
 }

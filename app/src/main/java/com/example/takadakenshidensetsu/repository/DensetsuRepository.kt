@@ -1,9 +1,11 @@
 package com.example.takadakenshidensetsu.repository
 
+import com.example.takadakenshidensetsu.network.DensetsuApi
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.create
 
 class DensetsuRepository() {
     val moshi = Moshi.Builder()
