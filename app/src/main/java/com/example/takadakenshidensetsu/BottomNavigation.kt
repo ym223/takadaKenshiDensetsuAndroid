@@ -1,5 +1,6 @@
 package com.example.takadakenshidensetsu
 
+import android.annotation.SuppressLint
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -14,13 +15,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.takadakenshidensetsu.view.Densetsu.DensetsuScreen
 import com.example.takadakenshidensetsu.view.DensetsuList.DensetsuListScreen
-import com.example.takadakenshidensetsu.view.StartScreen
+import com.example.takadakenshidensetsu.view.HomeScreen
 
 sealed class Item(var dist: String, var icon: ImageVector) {
     object Home : Item("Home", Icons.Filled.Home)
     object List : Item("List", Icons.Filled.List)
 }
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun BottomNavigation() {
     // 選択されたタブの管理用
@@ -56,7 +58,7 @@ fun BottomNavigation() {
 fun MainNavHost(navController: NavHostController){
     NavHost(navController = navController, startDestination = "home"){
         composable(route = "home"){
-            StartScreen(navController = navController)
+            HomeScreen(navController = navController)
         }
 
         composable(route = "densestu"){
