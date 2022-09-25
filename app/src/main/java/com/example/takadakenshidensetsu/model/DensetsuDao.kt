@@ -11,5 +11,5 @@ interface DensetsuDao {
     fun insertDensetsu(densetsu: DensetsuResult)
 
     @Query("select * from densetsu_table")
-    fun getDensetsuAll(): MutableList<DensetsuResult>
+    fun getDensetsuAll(): List<DensetsuResult>
 }
