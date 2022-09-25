@@ -3,9 +3,7 @@ package com.example.takadakenshidensetsu.view.Densetsu
 import androidx.lifecycle.*
 import com.example.takadakenshidensetsu.model.DensetsuResult
 import com.example.takadakenshidensetsu.repository.DensetsuRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class DensetsuViewModel: ViewModel() {
     private val repository = DensetsuRepository()
