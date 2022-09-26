@@ -10,6 +10,9 @@ class DensetsuViewModel(private val repository: DensetsuRepository): ViewModel()
     private val _densetsu = MutableLiveData<DensetsuResult>()
     val densetsu: LiveData<DensetsuResult> = _densetsu
 
+    private val _densetsuList = MutableLiveData<List<DensetsuResult>>()
+    val densetsuList: LiveData<List<DensetsuResult>> = _densetsuList
+
     fun getDensetsu() {
         viewModelScope.launch {
             val result = repository.getDensetsu()
@@ -20,6 +23,12 @@ class DensetsuViewModel(private val repository: DensetsuRepository): ViewModel()
     fun addDensetsu(densetsu: DensetsuResult){
         viewModelScope.launch(IO){
             repository.insertDensetsu(densetsu)
+        }
+    }
+
+    fun getDensetsuAll(){
+        viewModelScope.launch(IO){
+            _densetsuList.postValue(repository.getDensetsuAll())
         }
     }
 

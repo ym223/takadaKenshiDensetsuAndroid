@@ -1,5 +1,6 @@
 package com.example.takadakenshidensetsu.view.Densetsu
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -46,6 +47,8 @@ fun DensetsuScreen(
         densetsu.value?.let { densetsu ->
             Text(densetsu.text, Modifier.padding(10.dp, 10.dp))
             densetsuViewModel.addDensetsu(densetsu)
+            densetsuViewModel.getDensetsuAll()
+            Log.d("densetsuList", densetsuViewModel.densetsuList.value.toString())
         }
         Button(onClick = { navController.navigate("home") }) {
             Text(text = "もう一度伝説を探す")
