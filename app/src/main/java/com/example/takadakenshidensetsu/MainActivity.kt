@@ -11,4 +11,7 @@ class MainActivity : ComponentActivity() {
             DensetsuApp()
         }
     }
+
+    override fun onBackPressed() {
+    }
 }
