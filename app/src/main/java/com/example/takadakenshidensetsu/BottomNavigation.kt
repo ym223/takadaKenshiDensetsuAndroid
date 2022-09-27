@@ -25,49 +25,42 @@ sealed class Item(var dist: String, var icon: ImageVector) {
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun BottomNavigation() {
+fun BottomNavigation(navController: NavHostController) {
     // 選択されたタブの管理用
     var selectedItem = remember { mutableStateOf(0) }
     // タブ
     val items = listOf(Item.Home, Item.List)
-    // ナビゲーションコントローラー
-    val navController = rememberNavController()
-    Scaffold(
-        // 画面下に表示
-        bottomBar = {
-            // ナビゲーションバーの表示
-            BottomNavigation {
-                items.forEachIndexed { index, item ->
-                    BottomNavigationItem(
-                        icon = { Icon(item.icon, contentDescription = item.dist) },
-                        label = { Text(item.dist) },
-                        selected = selectedItem.value == index,
-                        onClick = {
-                            selectedItem.value = index
-                            navController.navigate(item.dist)
-                        }
-                    )
-                }
+
+    BottomAppBar {
+        // ナビゲーションバーの表示
+        BottomNavigation {
+            items.forEachIndexed { index, item ->
+                BottomNavigationItem(
+                    icon = { Icon(item.icon, contentDescription = item.dist) },
+                    label = { Text(item.dist) },
+                    selected = selectedItem.value == index,
+                    onClick = {
+                        selectedItem.value = index
+                        navController.navigate(item.dist)
+                    }
+                )
             }
         }
-    ) {
-        // ナビゲーション情報の設定
-        MainNavHost(navController = navController)
     }
 }
 
 @Composable
-fun MainNavHost(navController: NavHostController){
-    NavHost(navController = navController, startDestination = "home"){
-        composable(route = "home"){
+fun MainNavHost(navController: NavHostController) {
+    NavHost(navController = navController, startDestination = "home") {
+        composable(route = "home") {
             HomeScreen(navController = navController)
         }
 
-        composable(route = "densestu"){
+        composable(route = "densestu") {
             DensetsuScreen(navController = navController)
         }
 
-        composable(route = "list"){
+        composable(route = "list") {
             DensetsuListScreen()
         }
     }
