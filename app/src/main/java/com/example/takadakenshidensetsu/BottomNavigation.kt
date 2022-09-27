@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.List
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -42,6 +43,7 @@ fun BottomNavigation() {
                         label = { Text(item.dist) },
                         selected = selectedItem.value == index,
                         onClick = {
+                            selectedItem.value = index
                             navController.navigate(item.dist)
                         }
                     )
