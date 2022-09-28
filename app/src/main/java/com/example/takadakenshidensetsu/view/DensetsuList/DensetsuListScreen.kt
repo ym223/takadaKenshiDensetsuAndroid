@@ -7,7 +7,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -18,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.takadakenshidensetsu.model.DensetsuDatabase
 import com.example.takadakenshidensetsu.model.DensetsuResult
@@ -53,11 +56,16 @@ fun DensetsuListScreen() {
 fun DensetsuListItem(
     densetsu: DensetsuResult,
 ) {
-    Column(
+    Card(
         modifier = Modifier
-            .padding(10.dp, 10.dp)
+            .padding(10.dp, 10.dp),
+        RoundedCornerShape(20.dp)
     ) {
-        Text(text = densetsu.text)
+        Column(
+            modifier = Modifier
+                .padding(10.dp, 10.dp)
+        ) {
+            Text(text = densetsu.text, fontSize = 16.sp)
+        }
     }
-    Divider()
 }
