@@ -6,7 +6,7 @@ import com.example.takadakenshidensetsu.repository.DensetsuRepository
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 
-class DensetsuViewModel(private val repository: DensetsuRepository): ViewModel() {
+class DensetsuViewModel(private val repository: DensetsuRepository) : ViewModel() {
     private val _densetsu = MutableLiveData<DensetsuResult>()
     val densetsu: LiveData<DensetsuResult> = _densetsu
 
@@ -20,19 +20,30 @@ class DensetsuViewModel(private val repository: DensetsuRepository): ViewModel()
         }
     }
 
-    fun addDensetsu(densetsu: DensetsuResult){
-        viewModelScope.launch(IO){
+    fun addDensetsu(densetsu: DensetsuResult) {
+        viewModelScope.launch(IO) {
             repository.insertDensetsu(densetsu)
         }
     }
 
-    fun getDensetsuAll(){
-        viewModelScope.launch(IO){
+    fun getDensetsuAll() : MutableList<DensetsuResult?> {
+            val densetsuListAll = MutableList<DensetsuResult?>(231) { null }
+            fetchDensetsuAll()
+            densetsuList.value?.let {
+                for(densetsu in it){
+                    densetsuListAll[densetsu.No] = densetsu
+                }
+            }
+        return densetsuListAll
+    }
+
+    fun fetchDensetsuAll() {
+        viewModelScope.launch(IO) {
             _densetsuList.postValue(repository.getDensetsuAll())
         }
     }
 
-    class Factory(private val densetsuRepository: DensetsuRepository): ViewModelProvider.Factory {
+    class Factory(private val densetsuRepository: DensetsuRepository) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             @Suppress("UNCHECKED_CAST")
             return DensetsuViewModel(this.densetsuRepository) as T
