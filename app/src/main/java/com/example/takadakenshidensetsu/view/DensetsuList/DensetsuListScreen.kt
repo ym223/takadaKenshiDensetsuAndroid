@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -30,18 +31,23 @@ fun DensetsuListScreen() {
 
     val densetsuList = densetsuViewModel.getDensetsuAll()
 
+    val densetsuListSize = densetsuViewModel.densetsuListSize.observeAsState()
+
     val listState = rememberLazyListState()
 
-    densetsuListState.value?.let { 
-        LazyColumn(state = listState) {
-            items(densetsuList) { densetsu ->
-                if(densetsu != null){
-                    DensetsuListItem(densetsu.text)
-                } else {
-                    DensetsuListItem("？？？？？？？？？？？？？？？？？？？？？？")
+    Column {
+        Text(text = "${densetsuListSize.value}/231", textAlign = TextAlign.Right)
+        densetsuListState.value?.let {
+            LazyColumn(state = listState) {
+                items(densetsuList) { densetsu ->
+                    if(densetsu != null){
+                        DensetsuListItem(densetsu.text)
+                    } else {
+                        ListItemNone()
+                    }
                 }
             }
-        }
+        }   
     }
 }
 
@@ -62,3 +68,18 @@ fun DensetsuListItem(
         }
     }
 }
+
+@Composable
+fun ListItemNone(){
+    Card(
+        modifier = Modifier
+            .padding(10.dp, 10.dp),
+        RoundedCornerShape(20.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(10.dp, 10.dp)
+        ) {
+            Text(text = "？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？", fontSize = 16.sp, maxLines = 1)
+        }
+    }}
