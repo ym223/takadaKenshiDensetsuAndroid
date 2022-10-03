@@ -49,7 +49,7 @@ fun DensetsuListScreen() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(0.dp, 0.dp, 10.dp, 0.dp),
-                text = "${densetsuListState.value?.size}/231",
+                text = "${densetsuListState.value?.size}/232",
                 textAlign = TextAlign.End
             )
         }
