@@ -36,6 +36,10 @@ fun DensetsuListScreen() {
         )
     )
 
+    val options = listOf("全表示", "取得済みを表示")
+
+    val selectedOptionText = remember { mutableStateOf(options[0]) }
+
     val densetsuListState = densetsuViewModel.densetsuAll.observeAsState()
 
     val densetsuList = densetsuViewModel.getDensetsuAll()
@@ -44,7 +48,9 @@ fun DensetsuListScreen() {
 
     Column {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Dropdown(densetsuViewModel = densetsuViewModel)
+            Dropdown(options = options, selectedOptionText = selectedOptionText.value) {
+                selectedOptionText.value = options[it]
+            }
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -59,7 +65,9 @@ fun DensetsuListScreen() {
                     if (densetsu != null) {
                         DensetsuListItem(densetsu.text)
                     } else {
-                        ListItemNone()
+                        if (selectedOptionText.value.equals(options[0])){
+                            ListItemNone()
+                        }
                     }
                 }
             }
@@ -69,11 +77,11 @@ fun DensetsuListScreen() {
 
 @Composable
 fun Dropdown(
-    densetsuViewModel: DensetsuViewModel
+    options: List<String>,
+    selectedOptionText: String,
+    onClick : (Int) -> Unit
 ) {
-    val options = listOf("全表示", "取得済みを表示")
     val expanded = remember { mutableStateOf(false) }
-    val selectedOptionText = remember { mutableStateOf(options[0]) }
 
     Box(
         contentAlignment = Alignment.CenterStart,
@@ -85,7 +93,7 @@ fun Dropdown(
             .clickable { expanded.value = !expanded.value },
     ) {
         Text(
-            text = selectedOptionText.value,
+            text = selectedOptionText,
             modifier = Modifier.padding(start = 10.dp)
         )
         Icon(
@@ -96,10 +104,10 @@ fun Dropdown(
             expanded = expanded.value,
             onDismissRequest = { expanded.value = false }
         ) {
-            options.forEach { selectionOption ->
+            options.forEachIndexed { id, selectionOption ->
                 DropdownMenuItem(
                     onClick = {
-                        selectedOptionText.value = selectionOption
+                        onClick(id)
                         expanded.value = false
                     }
                 ) {
