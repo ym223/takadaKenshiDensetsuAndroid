@@ -10,11 +10,8 @@ class DensetsuViewModel(private val repository: DensetsuRepository) : ViewModel(
     private val _densetsu = MutableLiveData<DensetsuResult>()
     val densetsu: LiveData<DensetsuResult> = _densetsu
 
-    private val _densetsuList = MutableLiveData<List<DensetsuResult>>()
-    val densetsuList: LiveData<List<DensetsuResult>> = _densetsuList
-
-    private val _densetsuListSize = MutableLiveData<Int>()
-    val densetsuListSize: LiveData<Int> = _densetsuListSize
+    private val _densetsuAll = MutableLiveData<List<DensetsuResult>>()
+    val densetsuAll: LiveData<List<DensetsuResult>> = _densetsuAll
 
     fun getDensetsu() {
         viewModelScope.launch {
@@ -30,9 +27,9 @@ class DensetsuViewModel(private val repository: DensetsuRepository) : ViewModel(
     }
 
     fun getDensetsuAll() : MutableList<DensetsuResult?> {
-            val densetsuListAll = MutableList<DensetsuResult?>(231) { null }
+            val densetsuListAll = MutableList<DensetsuResult?>(232) { null }
             fetchDensetsuAll()
-            densetsuList.value?.let {
+            densetsuAll.value?.let {
                 for(densetsu in it){
                     densetsuListAll[densetsu.No] = densetsu
                 }
@@ -40,10 +37,20 @@ class DensetsuViewModel(private val repository: DensetsuRepository) : ViewModel(
         return densetsuListAll
     }
 
+    fun getDensetsuList() : MutableList<DensetsuResult?> {
+        val densetsuList:  MutableList<DensetsuResult?> = mutableListOf()
+        fetchDensetsuAll()
+        densetsuAll.value?.let {
+            for (densetsu in it){
+                densetsuList.add(densetsu)
+            }
+        }
+        return densetsuList
+    }
+
     fun fetchDensetsuAll() {
         viewModelScope.launch(IO) {
-            _densetsuList.postValue(repository.getDensetsuAll())
-            _densetsuListSize.postValue(densetsuList.value?.size)
+            _densetsuAll.postValue(repository.getDensetsuAll())
         }
     }
 
