@@ -21,10 +21,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.takadakenshidensetsu.model.DensetsuDatabase
-import com.example.takadakenshidensetsu.model.DensetsuResult
 import com.example.takadakenshidensetsu.repository.DensetsuRepository
 import com.example.takadakenshidensetsu.view.Densetsu.DensetsuViewModel
 
