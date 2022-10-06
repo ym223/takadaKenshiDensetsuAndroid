@@ -37,17 +37,6 @@ class DensetsuViewModel(private val repository: DensetsuRepository) : ViewModel(
         return densetsuListAll
     }
 
-    fun getDensetsuList() : MutableList<DensetsuResult?> {
-        val densetsuList:  MutableList<DensetsuResult?> = mutableListOf()
-        fetchDensetsuAll()
-        densetsuAll.value?.let {
-            for (densetsu in it){
-                densetsuList.add(densetsu)
-            }
-        }
-        return densetsuList
-    }
-
     fun fetchDensetsuAll() {
         viewModelScope.launch(IO) {
             _densetsuAll.postValue(repository.getDensetsuAll())
