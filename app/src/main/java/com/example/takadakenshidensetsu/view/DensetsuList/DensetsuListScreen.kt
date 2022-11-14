@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.takadakenshidensetsu.model.DensetsuDatabase
-import com.example.takadakenshidensetsu.repository.DensetsuRepository
+import com.example.takadakenshidensetsu.model.repository.DensetsuRepository
 import com.example.takadakenshidensetsu.view.Densetsu.DensetsuViewModel
 
 @Composable

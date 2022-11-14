@@ -15,7 +15,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.takadakenshidensetsu.R
 import com.example.takadakenshidensetsu.model.DensetsuDatabase
-import com.example.takadakenshidensetsu.repository.DensetsuRepository
+import com.example.takadakenshidensetsu.model.repository.DensetsuRepository
 
 @Composable
 fun DensetsuScreen(

@@ -1,8 +1,8 @@
-package com.example.takadakenshidensetsu.repository
+package com.example.takadakenshidensetsu.model.repository
 
 import com.example.takadakenshidensetsu.model.DensetsuDao
 import com.example.takadakenshidensetsu.model.DensetsuResult
-import com.example.takadakenshidensetsu.network.DensetsuApi
+import com.example.takadakenshidensetsu.model.network.DensetsuApi
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit

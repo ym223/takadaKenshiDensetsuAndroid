@@ -2,7 +2,7 @@ package com.example.takadakenshidensetsu.view.Densetsu
 
 import androidx.lifecycle.*
 import com.example.takadakenshidensetsu.model.DensetsuResult
-import com.example.takadakenshidensetsu.repository.DensetsuRepository
+import com.example.takadakenshidensetsu.model.repository.DensetsuRepository
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 
