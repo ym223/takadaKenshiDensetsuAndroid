@@ -8,16 +8,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.takadakenshidensetsu.R
-import com.example.takadakenshidensetsu.model.DensetsuDatabase
-import com.example.takadakenshidensetsu.model.repository.DensetsuRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 @Composable
 fun DensetsuScreen(

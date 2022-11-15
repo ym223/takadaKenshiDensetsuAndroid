@@ -1,4 +1,4 @@
-package com.example.takadakenshidensetsu.model
+package com.example.takadakenshidensetsu.model.db
 
 import android.content.Context
 import androidx.room.Room
@@ -15,7 +15,7 @@ class DaoProvideModule {
 
     @Singleton
     @Provides
-    fun createDensetsuDb(@ApplicationContext context: Context) : DensetsuDatabase{
+    fun createDensetsuDb(@ApplicationContext context: Context) : DensetsuDatabase {
         return Room.databaseBuilder(context, DensetsuDatabase::class.java, "densetsu")
             .fallbackToDestructiveMigration()
             .build()
@@ -23,5 +23,5 @@ class DaoProvideModule {
 
     @Singleton
     @Provides
-    fun densetsuDao(db: DensetsuDatabase): DensetsuDao= db.densetsuDao()
+    fun densetsuDao(db: DensetsuDatabase): DensetsuDao = db.densetsuDao()
 }
