@@ -7,22 +7,26 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Inject
 
-class DensetsuRepository(private val densetsuDao: DensetsuDao) {
-    val moshi = Moshi.Builder()
-        .add(KotlinJsonAdapterFactory())
-        .build()
+interface DensetsuRepository {
+    suspend fun getDensetsu(): DensetsuResult
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("https://tools.ic731.net/api/kenshi/takada.php/")
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
-        .build()
+    suspend fun insertDensetsu(densetsu: DensetsuResult)
 
-    private val DensetsuService = retrofit.create(DensetsuApi::class.java)
+    suspend fun getDensetsuAll(): List<DensetsuResult>
+}
 
-    suspend fun getDensetsu() = DensetsuService.getDensetsu()
+class DensetsuRepositoryImpl @Inject constructor(
+    private val densetsuApi: DensetsuApi,
+    private val densetsuDao: DensetsuDao
+) : DensetsuRepository {
 
-    suspend fun insertDensetsu(densetsu: DensetsuResult) = densetsuDao.insertDensetsu(densetsu)
+    override suspend fun getDensetsu() = densetsuApi.getDensetsu()
 
-    suspend fun getDensetsuAll(): List<DensetsuResult> = densetsuDao.getDensetsuAll()
+    override suspend fun insertDensetsu(densetsu: DensetsuResult) =
+        densetsuDao.insertDensetsu(densetsu = densetsu)
+
+    override suspend fun getDensetsuAll(): List<DensetsuResult> = densetsuDao.getDensetsuAll()
+
 }

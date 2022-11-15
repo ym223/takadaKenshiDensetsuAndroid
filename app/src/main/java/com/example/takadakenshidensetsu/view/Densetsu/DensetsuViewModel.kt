@@ -3,10 +3,15 @@ package com.example.takadakenshidensetsu.view.Densetsu
 import androidx.lifecycle.*
 import com.example.takadakenshidensetsu.model.DensetsuResult
 import com.example.takadakenshidensetsu.model.repository.DensetsuRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DensetsuViewModel(private val repository: DensetsuRepository) : ViewModel() {
+@HiltViewModel
+class DensetsuViewModel @Inject constructor(
+    private val repository: DensetsuRepository
+    ) : ViewModel() {
     private val _densetsu = MutableLiveData<DensetsuResult>()
     val densetsu: LiveData<DensetsuResult> = _densetsu
 
@@ -26,14 +31,14 @@ class DensetsuViewModel(private val repository: DensetsuRepository) : ViewModel(
         }
     }
 
-    fun getDensetsuAll() : MutableList<DensetsuResult?> {
-            val densetsuListAll = MutableList<DensetsuResult?>(232) { null }
-            fetchDensetsuAll()
-            densetsuAll.value?.let {
-                for(densetsu in it){
-                    densetsuListAll[densetsu.No] = densetsu
-                }
+    fun getDensetsuAll(): MutableList<DensetsuResult?> {
+        val densetsuListAll = MutableList<DensetsuResult?>(232) { null }
+        fetchDensetsuAll()
+        densetsuAll.value?.let {
+            for (densetsu in it) {
+                densetsuListAll[densetsu.No] = densetsu
             }
+        }
         return densetsuListAll
     }
 

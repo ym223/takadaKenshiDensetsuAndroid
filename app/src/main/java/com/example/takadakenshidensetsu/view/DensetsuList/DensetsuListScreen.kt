@@ -21,18 +21,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.takadakenshidensetsu.model.DensetsuDatabase
 import com.example.takadakenshidensetsu.model.repository.DensetsuRepository
 import com.example.takadakenshidensetsu.view.Densetsu.DensetsuViewModel
 
 @Composable
-fun DensetsuListScreen() {
-    val densetsuViewModel: DensetsuViewModel = viewModel(
-        factory = DensetsuViewModel.Factory(
-            DensetsuRepository(DensetsuDatabase.getInstance(LocalContext.current).densetsuDao())
-        )
-    )
+fun DensetsuListScreen(
+    densetsuViewModel: DensetsuViewModel = hiltViewModel()
+) {
 
     val options = listOf("全表示", "取得済みを表示")
 

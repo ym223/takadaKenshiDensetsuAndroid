@@ -11,20 +11,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.takadakenshidensetsu.R
 import com.example.takadakenshidensetsu.model.DensetsuDatabase
 import com.example.takadakenshidensetsu.model.repository.DensetsuRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 @Composable
 fun DensetsuScreen(
     navController: NavController,
+    densetsuViewModel: DensetsuViewModel = hiltViewModel()
 ) {
-
-    val densetsuViewModel: DensetsuViewModel = viewModel(factory = DensetsuViewModel.Factory(
-        DensetsuRepository(DensetsuDatabase.getInstance(LocalContext.current).densetsuDao())
-    ))
 
     LaunchedEffect(Unit) {
         densetsuViewModel.getDensetsu()

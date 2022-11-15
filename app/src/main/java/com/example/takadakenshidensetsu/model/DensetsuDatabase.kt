@@ -9,23 +9,4 @@ import androidx.room.RoomDatabase
 abstract class DensetsuDatabase : RoomDatabase() {
     abstract fun densetsuDao(): DensetsuDao
 
-    companion object {
-        private var INSTANCE: DensetsuDatabase? = null
-
-        fun getInstance(context: Context): DensetsuDatabase {
-            val tempInstance = INSTANCE
-            if (tempInstance != null) {
-                return tempInstance
-            }
-            synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    DensetsuDatabase::class.java,
-                    "densetsu"
-                ).build()
-                INSTANCE = instance
-                return instance
-            }
-        }
-    }
 }
