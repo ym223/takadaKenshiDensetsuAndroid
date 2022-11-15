@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "densetsu_table")
-data class DensetsuResult
+data class Densetsu
     (
     @PrimaryKey val No: Int,
     val text: String
