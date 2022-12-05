@@ -47,11 +47,4 @@ class DensetsuViewModel @Inject constructor(
             _densetsuAll.postValue(repository.getDensetsuAll())
         }
     }
-
-    class Factory(private val densetsuRepository: DensetsuRepository) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            @Suppress("UNCHECKED_CAST")
-            return DensetsuViewModel(this.densetsuRepository) as T
-        }
-    }
 }
