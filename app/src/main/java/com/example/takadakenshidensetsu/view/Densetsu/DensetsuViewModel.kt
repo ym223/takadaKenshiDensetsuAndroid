@@ -15,9 +15,6 @@ class DensetsuViewModel @Inject constructor(
     private val _densetsu = MutableLiveData<Densetsu>()
     val densetsu: LiveData<Densetsu> = _densetsu
 
-    private val _densetsuAll = MutableLiveData<List<Densetsu>>()
-    val densetsuAll: LiveData<List<Densetsu>> = _densetsuAll
-
     fun getDensetsu() {
         viewModelScope.launch {
             val result = repository.getDensetsu()
@@ -28,23 +25,6 @@ class DensetsuViewModel @Inject constructor(
     fun addDensetsu(densetsu: Densetsu) {
         viewModelScope.launch(IO) {
             repository.insertDensetsu(densetsu)
-        }
-    }
-
-    fun getDensetsuAll(): MutableList<Densetsu?> {
-        val densetsuListAll = MutableList<Densetsu?>(232) { null }
-        fetchDensetsuAll()
-        densetsuAll.value?.let {
-            for (densetsu in it) {
-                densetsuListAll[densetsu.No] = densetsu
-            }
-        }
-        return densetsuListAll
-    }
-
-    fun fetchDensetsuAll() {
-        viewModelScope.launch(IO) {
-            _densetsuAll.postValue(repository.getDensetsuAll())
         }
     }
 }

@@ -25,16 +25,16 @@ import com.example.takadakenshidensetsu.view.Densetsu.DensetsuViewModel
 
 @Composable
 fun DensetsuListScreen(
-    densetsuViewModel: DensetsuViewModel = hiltViewModel()
+    densetsuListViewModel: DensetsuListViewModel = hiltViewModel()
 ) {
 
     val options = listOf("全表示", "取得済みを表示")
 
     val selectedOptionText = remember { mutableStateOf(options[0]) }
 
-    val densetsuListState = densetsuViewModel.densetsuAll.observeAsState()
+    val densetsuListState = densetsuListViewModel.densetsuAll.observeAsState()
 
-    val densetsuList = densetsuViewModel.getDensetsuAll()
+    val densetsuList = densetsuListViewModel.getDensetsuAll()
 
     val listState = rememberLazyListState()
 
