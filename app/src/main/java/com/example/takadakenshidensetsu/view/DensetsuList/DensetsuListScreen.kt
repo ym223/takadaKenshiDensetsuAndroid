@@ -21,11 +21,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.takadakenshidensetsu.model.Densetsu
 import com.example.takadakenshidensetsu.view.Densetsu.DensetsuViewModel
 
 @Composable
-fun DensetsuListScreen(
+fun DensetsuListRoute(
     densetsuListViewModel: DensetsuListViewModel = hiltViewModel()
+){
+    DensetsuListScreen(densetsuListViewModel)
+}
+
+@Composable
+fun DensetsuListScreen(
+    densetsuListViewModel: DensetsuListViewModel
 ) {
 
     val options = listOf("全表示", "取得済みを表示")
