@@ -65,7 +65,7 @@ fun DensetsuListScreen(
                     if (densetsu != null) {
                         DensetsuListItem(densetsu.text)
                     } else {
-                        if (selectedOptionText.value.equals(options[0])){
+                        if (selectedOptionText.value == options[0]){
                             ListItemNone()
                         }
                     }
