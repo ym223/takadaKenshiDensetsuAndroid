@@ -8,6 +8,9 @@ import com.example.takadakenshidensetsu.model.Densetsu
 import com.example.takadakenshidensetsu.model.repository.DensetsuRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,13 +19,13 @@ class DensetsuListViewModel @Inject constructor(
     private val repository: DensetsuRepository
 ) : ViewModel() {
 
-    private val _densetsuAll = MutableLiveData<List<Densetsu>>()
-    val densetsuAll: LiveData<List<Densetsu>> = _densetsuAll
+    private val _densetsuAll = MutableStateFlow<List<Densetsu>>(listOf())
+    val densetsuAll: StateFlow<List<Densetsu>> = _densetsuAll
 
     fun getDensetsuAll(): MutableList<Densetsu?> {
         val densetsuListAll = MutableList<Densetsu?>(232) { null }
         fetchDensetsuAll()
-        densetsuAll.value?.let {
+        densetsuAll.value.let {
             for (densetsu in it) {
                 densetsuListAll[densetsu.No] = densetsu
             }
@@ -32,7 +35,7 @@ class DensetsuListViewModel @Inject constructor(
 
     fun fetchDensetsuAll() {
         viewModelScope.launch(Dispatchers.IO) {
-            _densetsuAll.postValue(repository.getDensetsuAll())
+            _densetsuAll.update { repository.getDensetsuAll() }
         }
     }
 }
