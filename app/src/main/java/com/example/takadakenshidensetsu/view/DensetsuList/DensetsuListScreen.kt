@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.takadakenshidensetsu.model.Densetsu
 
 @Composable
 fun DensetsuListRoute(
@@ -35,10 +36,8 @@ fun DensetsuListRoute(
 fun DensetsuListScreen(
     densetsuListViewModel: DensetsuListViewModel = hiltViewModel()
 ) {
-
-    val options = listOf("全表示", "取得済みを表示")
-
-    val selectedOptionText = remember { mutableStateOf(options[0]) }
+    //val options = listOf("全表示", "取得済みを表示")
+    //val selectedOptionText = remember { mutableStateOf(options[0]) }
 
     val densetsuListState = densetsuListViewModel.densetsuAll.collectAsState()
 
@@ -48,9 +47,12 @@ fun DensetsuListScreen(
 
     Column {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Dropdown(options = options, selectedOptionText = selectedOptionText.value) {
+
+            //DensetsuList関数にて、どう場合わけするかがわからなくなったので、一旦削除
+            /*Dropdown(options = options, selectedOptionText = selectedOptionText.value) {
                 selectedOptionText.value = options[it]
-            }
+            }*/
+
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -59,62 +61,69 @@ fun DensetsuListScreen(
                 textAlign = TextAlign.End
             )
         }
-        LazyColumn(state = listState) {
-            items(densetsuList) { densetsu ->
-                if (densetsu != null) {
-                    DensetsuListItem(densetsu.text)
-                } else {
-                    if (selectedOptionText.value == options[0]) {
-                        ListItemNone()
-                    }
-                }
-            }
-        }
+        DensetsuList(densetsuList = densetsuList)
     }
 }
 
 @Composable
-fun Dropdown(
-    options: List<String>,
-    selectedOptionText: String,
-    onClick: (Int) -> Unit
+fun DensetsuList(
+    densetsuList: List<Densetsu?>
 ) {
-    val expanded = remember { mutableStateOf(false) }
-
-    Box(
-        contentAlignment = Alignment.CenterStart,
-        modifier = Modifier
-            .padding(10.dp, 5.dp, 10.dp, 5.dp)
-            .size(160.dp, 40.dp)
-            .clip(RoundedCornerShape(4.dp))
-            .border(BorderStroke(1.dp, Color.LightGray), RoundedCornerShape(4.dp))
-            .clickable { expanded.value = !expanded.value },
-    ) {
-        Text(
-            text = selectedOptionText,
-            modifier = Modifier.padding(start = 10.dp)
-        )
-        Icon(
-            Icons.Filled.ArrowDropDown, "contentDescription",
-            Modifier.align(Alignment.CenterEnd)
-        )
-        DropdownMenu(
-            expanded = expanded.value,
-            onDismissRequest = { expanded.value = false }
-        ) {
-            options.forEachIndexed { id, selectionOption ->
-                DropdownMenuItem(
-                    onClick = {
-                        onClick(id)
-                        expanded.value = false
-                    }
-                ) {
-                    Text(text = selectionOption)
-                }
+    LazyColumn() {
+        items(densetsuList) { densetsu ->
+            if (densetsu != null) {
+                DensetsuListItem(densetsu.text)
+            } else {
+                //if (selectedOptionText.value == options[0]) {
+                ListItemNone()
+                //}
             }
         }
     }
 }
+
+//@Composable
+//fun Dropdown(
+//    options: List<String>,
+//    selectedOptionText: String,
+//    onClick: (Int) -> Unit
+//) {
+//    val expanded = remember { mutableStateOf(false) }
+//
+//    Box(
+//        contentAlignment = Alignment.CenterStart,
+//        modifier = Modifier
+//            .padding(10.dp, 5.dp, 10.dp, 5.dp)
+//            .size(160.dp, 40.dp)
+//            .clip(RoundedCornerShape(4.dp))
+//            .border(BorderStroke(1.dp, Color.LightGray), RoundedCornerShape(4.dp))
+//            .clickable { expanded.value = !expanded.value },
+//    ) {
+//        Text(
+//            text = selectedOptionText,
+//            modifier = Modifier.padding(start = 10.dp)
+//        )
+//        Icon(
+//            Icons.Filled.ArrowDropDown, "contentDescription",
+//            Modifier.align(Alignment.CenterEnd)
+//        )
+//        DropdownMenu(
+//            expanded = expanded.value,
+//            onDismissRequest = { expanded.value = false }
+//        ) {
+//            options.forEachIndexed { id, selectionOption ->
+//                DropdownMenuItem(
+//                    onClick = {
+//                        onClick(id)
+//                        expanded.value = false
+//                    }
+//                ) {
+//                    Text(text = selectionOption)
+//                }
+//            }
+//        }
+//    }
+//}
 
 @Composable
 fun DensetsuListItem(
