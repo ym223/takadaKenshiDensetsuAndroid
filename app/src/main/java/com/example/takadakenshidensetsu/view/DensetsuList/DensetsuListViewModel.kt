@@ -1,7 +1,5 @@
 package com.example.takadakenshidensetsu.view.DensetsuList
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.takadakenshidensetsu.model.Densetsu
@@ -25,7 +23,7 @@ class DensetsuListViewModel @Inject constructor(
     fun getDensetsuAll(): MutableList<Densetsu?> {
         val densetsuListAll = MutableList<Densetsu?>(232) { null }
         fetchDensetsuAll()
-        densetsuAll.value.let {
+        _densetsuAll.value.let {
             for (densetsu in it) {
                 densetsuListAll[densetsu.No] = densetsu
             }

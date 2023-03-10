@@ -12,7 +12,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -27,20 +27,20 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @Composable
 fun DensetsuListRoute(
     densetsuListViewModel: DensetsuListViewModel = hiltViewModel()
-){
+) {
     DensetsuListScreen(densetsuListViewModel)
 }
 
 @Composable
 fun DensetsuListScreen(
-    densetsuListViewModel: DensetsuListViewModel
+    densetsuListViewModel: DensetsuListViewModel = hiltViewModel()
 ) {
 
     val options = listOf("全表示", "取得済みを表示")
 
     val selectedOptionText = remember { mutableStateOf(options[0]) }
 
-    val densetsuListState = densetsuListViewModel.densetsuAll.observeAsState()
+    val densetsuListState = densetsuListViewModel.densetsuAll.collectAsState()
 
     val densetsuList = densetsuListViewModel.getDensetsuAll()
 
@@ -55,19 +55,17 @@ fun DensetsuListScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(0.dp, 0.dp, 10.dp, 0.dp),
-                text = "${densetsuListState.value?.size}/232",
+                text = "${densetsuListState.value.size}/232",
                 textAlign = TextAlign.End
             )
         }
-        densetsuListState.value?.let {
-            LazyColumn(state = listState) {
-                items(densetsuList) { densetsu ->
-                    if (densetsu != null) {
-                        DensetsuListItem(densetsu.text)
-                    } else {
-                        if (selectedOptionText.value == options[0]){
-                            ListItemNone()
-                        }
+        LazyColumn(state = listState) {
+            items(densetsuList) { densetsu ->
+                if (densetsu != null) {
+                    DensetsuListItem(densetsu.text)
+                } else {
+                    if (selectedOptionText.value == options[0]) {
+                        ListItemNone()
                     }
                 }
             }
@@ -79,7 +77,7 @@ fun DensetsuListScreen(
 fun Dropdown(
     options: List<String>,
     selectedOptionText: String,
-    onClick : (Int) -> Unit
+    onClick: (Int) -> Unit
 ) {
     val expanded = remember { mutableStateOf(false) }
 
