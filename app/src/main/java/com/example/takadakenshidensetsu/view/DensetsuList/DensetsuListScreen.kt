@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -56,15 +57,16 @@ fun DensetsuListScreen(
                 textAlign = TextAlign.End
             )
         }
-        DensetsuList(densetsuList = densetsuList)
+        DensetsuList(listState = listState, densetsuList = densetsuList)
     }
 }
 
 @Composable
 fun DensetsuList(
+    listState: LazyListState,
     densetsuList: List<Densetsu?>
 ) {
-    LazyColumn() {
+    LazyColumn(state = listState) {
         items(densetsuList) { densetsu ->
             if (densetsu != null) {
                 DensetsuListItem(densetsu.text)
