@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.takadakenshidensetsu.model.Densetsu
 
+//後でnavigationを修正する
 @Composable
 fun DensetsuListRoute(
     densetsuListViewModel: DensetsuListViewModel = hiltViewModel()
