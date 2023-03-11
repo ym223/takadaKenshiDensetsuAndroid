@@ -69,13 +69,8 @@ fun DensetsuList(
 ) {
     LazyColumn(state = listState) {
         items(densetsuList) { densetsu ->
-            if (densetsu != null) {
-                DensetsuListItem(densetsu.text)
-            } else {
-                //if (selectedOptionText.value == options[0]) {
-                ListItemNone()
-                //}
-            }
+            val densetsuContent = densetsu?.text ?: "？？？？？"
+            DensetsuListItem(densetsuContent = densetsuContent)
         }
     }
 }
@@ -129,30 +124,15 @@ fun DensetsuListItem(
 ) {
     Card(
         modifier = Modifier
-            .padding(10.dp, 10.dp),
+            .padding(10.dp),
         RoundedCornerShape(20.dp)
     ) {
-        Column(
+        Text(
             modifier = Modifier
-                .padding(10.dp, 10.dp)
-        ) {
-            Text(text = densetsuContent, fontSize = 16.sp)
-        }
-    }
-}
-
-@Composable
-fun ListItemNone() {
-    Card(
-        modifier = Modifier
-            .padding(10.dp, 10.dp),
-        RoundedCornerShape(20.dp)
-    ) {
-        Column(
-            modifier = Modifier
-                .padding(10.dp, 10.dp)
-        ) {
-            Text(text = "？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？", fontSize = 16.sp, maxLines = 1)
-        }
+                .fillMaxWidth()
+                .padding(10.dp),
+            text = densetsuContent,
+            fontSize = 16.sp
+        )
     }
 }
