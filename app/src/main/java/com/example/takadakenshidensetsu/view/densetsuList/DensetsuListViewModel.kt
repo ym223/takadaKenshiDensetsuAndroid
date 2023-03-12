@@ -1,4 +1,4 @@
-package com.example.takadakenshidensetsu.view.DensetsuList
+package com.example.takadakenshidensetsu.view.densetsuList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

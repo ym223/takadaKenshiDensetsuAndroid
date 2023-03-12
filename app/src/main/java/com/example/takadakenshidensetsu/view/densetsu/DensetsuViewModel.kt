@@ -1,4 +1,4 @@
-package com.example.takadakenshidensetsu.view.Densetsu
+package com.example.takadakenshidensetsu.view.densetsu
 
 import androidx.lifecycle.*
 import com.example.takadakenshidensetsu.model.Densetsu

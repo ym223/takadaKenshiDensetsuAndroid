@@ -7,9 +7,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
-import com.example.takadakenshidensetsu.view.Densetsu.DensetsuScreen
-import com.example.takadakenshidensetsu.view.DensetsuList.DensetsuListRoute
-import com.example.takadakenshidensetsu.view.HomeScreen
+import com.example.takadakenshidensetsu.view.densetsu.DensetsuScreen
+import com.example.takadakenshidensetsu.view.densetsuList.DensetsuListRoute
+import com.example.takadakenshidensetsu.view.home.HomeScreen
 
 @Composable
 fun MainNavigation(

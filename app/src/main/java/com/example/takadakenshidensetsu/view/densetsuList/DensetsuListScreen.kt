@@ -1,4 +1,4 @@
-package com.example.takadakenshidensetsu.view.DensetsuList
+package com.example.takadakenshidensetsu.view.densetsuList
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

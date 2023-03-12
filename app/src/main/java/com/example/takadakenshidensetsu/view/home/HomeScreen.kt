@@ -1,4 +1,4 @@
-package com.example.takadakenshidensetsu.view
+package com.example.takadakenshidensetsu.view.home
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
