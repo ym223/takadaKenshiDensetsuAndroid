@@ -15,7 +15,4 @@ class MainActivity : ComponentActivity() {
             DensetsuApp(navController)
         }
     }
-
-    override fun onBackPressed() {
-    }
 }

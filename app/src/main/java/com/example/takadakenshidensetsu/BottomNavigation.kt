@@ -44,7 +44,6 @@ fun MainNavigationBar(
                             saveState = true
                         }
                         launchSingleTop = true
-                        restoreState = true
                     }
                 }
             )
