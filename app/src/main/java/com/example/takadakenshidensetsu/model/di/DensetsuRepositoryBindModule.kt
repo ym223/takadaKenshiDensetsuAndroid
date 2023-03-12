@@ -1,5 +1,7 @@
-package com.example.takadakenshidensetsu.model.repository
+package com.example.takadakenshidensetsu.model.di
 
+import com.example.takadakenshidensetsu.model.repository.DensetsuRepository
+import com.example.takadakenshidensetsu.model.repository.DensetsuRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -1,7 +1,9 @@
-package com.example.takadakenshidensetsu.model.db
+package com.example.takadakenshidensetsu.model.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.takadakenshidensetsu.model.db.DensetsuDao
+import com.example.takadakenshidensetsu.model.db.DensetsuDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

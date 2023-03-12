@@ -1,5 +1,6 @@
-package com.example.takadakenshidensetsu.model.network
+package com.example.takadakenshidensetsu.model.di
 
+import com.example.takadakenshidensetsu.model.network.DensetsuApi
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
