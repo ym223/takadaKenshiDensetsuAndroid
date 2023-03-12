@@ -1,65 +1,70 @@
 package com.example.takadakenshidensetsu
 
-import android.annotation.SuppressLint
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Icon
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import com.example.takadakenshidensetsu.view.Densetsu.DensetsuScreen
-import com.example.takadakenshidensetsu.view.DensetsuList.DensetsuListScreen
-import com.example.takadakenshidensetsu.view.HomeScreen
+import androidx.navigation.compose.currentBackStackEntryAsState
 
-sealed class Item(var dist: String, var icon: ImageVector) {
-    object Home : Item("Home", Icons.Filled.Home)
-    object List : Item("List", Icons.Filled.List)
+sealed class Screen(val route: String) {
+    object Home : Screen("home")
+    object List : Screen("list")
 }
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun BottomNavigation(navController: NavHostController) {
-    // 選択されたタブの管理用
-    var selectedItem = remember { mutableStateOf(0) }
-    // タブ
-    val items = listOf(Item.Home, Item.List)
-
-    BottomAppBar {
-        // ナビゲーションバーの表示
-        BottomNavigation {
-            items.forEachIndexed { index, item ->
-                BottomNavigationItem(
-                    icon = { Icon(item.icon, contentDescription = item.dist) },
-                    label = { Text(item.dist) },
-                    selected = selectedItem.value == index,
-                    onClick = {
-                        selectedItem.value = index
-                        navController.navigate(item.dist)
+fun MainNavigationBar(
+    navController: NavHostController
+) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+    BottomNavigation(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        NavigationItem.values().forEach { item ->
+            BottomNavigationItem(
+                icon = {
+                    Icon(imageVector = item.icon, contentDescription = null)
+                },
+                label = { Text(text = item.label, maxLines = 1) },
+                selected = currentDestination?.hierarchy?.any { it.route == item.screen.route } == true,
+                onClick = {
+                    navController.navigate(item.screen.route) {
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
+                        }
+                        launchSingleTop = true
+                        restoreState = true
                     }
-                )
-            }
+                }
+            )
         }
     }
 }
 
-@Composable
-fun MainNavHost(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "home") {
-        composable(route = "home") {
-            HomeScreen(navController = navController)
-        }
-
-        composable(route = "densestu") {
-            DensetsuScreen(navController = navController)
-        }
-
-        composable(route = "list") {
-            DensetsuListScreen()
-        }
-    }
+enum class NavigationItem(
+    val screen: Screen,
+    val icon: ImageVector,
+    val label: String
+) {
+    HOME(
+        screen = Screen.Home,
+        icon = Icons.Filled.Home,
+        label = "HOME"
+    ),
+    List(
+        screen = Screen.List,
+        icon = Icons.Filled.List,
+        label = "LIST"
+    )
 }

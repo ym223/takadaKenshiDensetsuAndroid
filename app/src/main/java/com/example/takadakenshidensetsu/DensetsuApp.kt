@@ -19,7 +19,7 @@ fun DensetsuApp(navController: NavHostController) {
                     title = { Text(text = "高田健志の伝説") })
             },
             bottomBar = {
-                BottomNavigation(navController)
+                MainNavigationBar(navController)
             }
         ) { innerPadding ->
             Box(modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding())) {
